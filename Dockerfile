@@ -16,7 +16,8 @@ COPY entrypoint.sh .
 RUN chmod a+x entrypoint.sh
 
 # Install packages
-RUN apt-get update && apt-get -y install amule-daemon curl
+RUN apt-get update && apt-get -y --no-install-recommends install amule-daemon curl && \
+    rm -rf /var/lib/apt/lists
 
 # Timezone (no prompt)
 ARG TZ "Europe/Madrid"

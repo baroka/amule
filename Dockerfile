@@ -16,7 +16,7 @@ COPY entrypoint.sh .
 RUN chmod a+x entrypoint.sh
 
 # Install packages
-RUN apt-get update && apt-get install -y --no-install-recommends amule-daemon curl
+RUN apt-get update && apt-get install -y amule-daemon curl
 
 # Timezone (no prompt)
 ARG TZ "Europe/Madrid"
@@ -25,9 +25,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tz
 RUN echo "$tz" > /etc/timezone
 RUN rm -f /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
-
-# Delete
-RUN rm -rf /var/lib/apt/lists
 
 # Run the command on container startup
 ENTRYPOINT ["/work/entrypoint.sh"]
